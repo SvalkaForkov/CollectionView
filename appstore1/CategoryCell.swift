@@ -21,14 +21,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         fatalError("init(coder:) has not been implemented")
     }
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Best New Apps"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     let appsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -52,21 +44,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
         addSubview(appsCollectionView)
         addSubview(dividerLineView)
-        addSubview(nameLabel)
         
         appsCollectionView.dataSource = self
         appsCollectionView.delegate = self
         
         appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: cellId)
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
-        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": dividerLineView]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[nameLabel(30)][v0][v1(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView, "v1": dividerLineView, "nameLabel": nameLabel]))
-        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView, "v1": dividerLineView]))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
